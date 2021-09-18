@@ -1,0 +1,4 @@
+*.pt
+3D_CNN_and_variants
+dummy.ipynb
+.ipynb_checkpoints
