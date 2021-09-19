@@ -1,0 +1,3 @@
+1. videos- This folder should contain all the videos whose names are in video_files.csv file.
+2. video_files.csv- This files contains the train/test split information.
+

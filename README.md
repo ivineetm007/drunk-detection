@@ -20,9 +20,10 @@ This repository contains the code for the feature extraction and the experiments
 ## Files/Folders description
 1. **Audio_models** - This folder contains the code for the audio feature extraction and training code for all audio models.
 2. **CNN_RNN** - This folder contains the code for the visual feature extraction and the training code for the CNN_RNN models.
-3. **split.csv** - Data split used in the experiments. 
-4. **test.ipynb** - This jupyter notebook contains the testing code for the best models and the ensemble startegy as discussed in the paper. The final hyperparameter setting and the model configuration can be seen in this notebook. 
-5. **3D_pred.csv** - This file contains the predictions by the best 3D CNN varaints. 
+3. **3D_CNN_and_variants** - This folder contains the code for the training of 3D CNN models and it's various variants.
+4. **split.csv** - Data split used in the experiments. 
+5 **test.ipynb** - This jupyter notebook contains the testing code for the best models and the ensemble startegy as discussed in the paper. The final hyperparameter setting and the model configuration can be seen in this notebook. 
+6. **3D_pred.csv** - This file contains the predictions by the best 3D CNN varaints. 
 
 
 

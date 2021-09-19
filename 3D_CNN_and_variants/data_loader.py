@@ -1,0 +1,65 @@
+import torch
+from torch.utils.data import Dataset, DataLoader
+from torchvision import transforms, utils
+import pandas as pd
+
+import cv2
+
+
+class VideoDataset(Dataset):
+    """Dataset Class for Loading Drunk, Sober Video"""
+
+    def __init__(self, mode, folder = "./data/videos/", file = "video_files.csv"):
+        """
+		Args:
+            folder: where videos are there
+            file: the csv file
+			mode: mode of the dataset i.e., train, val, test
+		"""
+
+        self.mode = mode
+        self.files = [] #the files
+        self.cats = [] #the folders
+
+        train = pd.read_csv("./data/" + file, header = None)
+        for index in range(len(train[0])):
+            if (train[0][index] == self.mode):
+                file = folder + train[2][index]
+                category = 1.0 if train[1][index] == "Drunk" else 0.0
+
+                self.files.append(file)
+                self.cats.append(category)
+
+        self.length = len(self.files)
+
+        self.transform = transforms.Compose([transforms.ToPILImage(), transforms.ToTensor(),
+                        transforms.Normalize([0.29075419,0.34523574,0.47825202], [0.1413886,0.13252793,0.15167585])])
+
+    def __len__(self):
+        return self.length
+
+    def readVideo(self, videoFile):
+
+        cap = cv2.VideoCapture(videoFile)
+
+        frames = torch.FloatTensor(3, 240, 224, 224)  #hardcoding 240 frames, size is 224 X 224
+    
+        for f in range(240):
+
+            ret, frame = cap.read()
+    
+            if ret:
+                frame = self.transform(frame)
+                frames[:, f, :, :] = frame
+
+            else:
+                break
+    
+        return frames
+
+    def __getitem__(self, idx):
+
+        file = self.readVideo(self.files[idx])
+        category = self.cats[idx]
+
+        return file, category
